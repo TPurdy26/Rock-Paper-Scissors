@@ -34,25 +34,25 @@ function playRound() {
     let humanMove = getHumanChoice();
     let computerMove = getComputerChoice();
     if (humanMove === "ROCK" && computerMove === "SCISSORS") {
-        alert("Computer's Move: " + computerMove + "\nYou won!");
+        alert("Your move: " + humanMove + "\nComputer's Move: " + computerMove + "\nYou won!");
         humanScore++;
     } else if (humanMove === "PAPER" && computerMove === "ROCK") {
         alert("Computer's Move: " + computerMove + "\nYou won!");
         humanScore++;
     } else if (humanMove === "SCISSORS" && computerMove === "PAPER") {
-        alert("Computer's Move: " + computerMove + "\nYou won!");
+        alert("Your move: " + humanMove + "\nComputer's Move: " + computerMove + "\nYou won!");
         return "USER WON";
         humanScore++;
     } else if (humanMove === computerMove) {
-        alert("Computer's Move: " + computerMove + "\n It's a tie!");
+        alert("Your move: " + humanMove + "\nComputer's Move: " + computerMove + "\n It's a tie!");
     } else {
-        alert("Computer's Move: " + computerMove + "\nYou lost!");
+        alert("Your move: " + humanMove + "\nComputer's Move: " + computerMove + "\nYou lost!");
         computerScore++;
     }
 }
 
 function playGame() {
-    while(humanScore + computerScore < 5){
+    while(humanScore < 3 && computerScore < 3) {
         playRound();
         alert("Your score: " + humanScore + "\nComputer score: " + computerScore);
     }
