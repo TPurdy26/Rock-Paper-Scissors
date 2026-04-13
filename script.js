@@ -3,6 +3,7 @@ Math.random
 let humanScore = 0;
 let computerScore = 0;
 
+const btn = document.querySelector("#play-button");
 function getComputerChoice() {
     let odds = Math.floor(Math.random() * 3) + 1;
     let computerChoice;
@@ -21,8 +22,13 @@ function getComputerChoice() {
     }
 
 function getHumanChoice() {
-    let humanChoice = String(prompt("Enter Rock, Paper, or Scissors to play the game:")).toUpperCase();
-    console.log(humanChoice)
+    let humanChoice = "";
+    btn.addEventListener("click", function(event) {
+        event.preventDefault();
+        humanChoice = document.getElementById("user-form").value;
+        console.log(humanChoice)
+    })
+    
     while(humanChoice !== "ROCK" && humanChoice !== "PAPER" && humanChoice !== "SCISSORS") {
         alert("Invalid Input")
         humanChoice = String(prompt("Enter Rock, Paper, or Scissors to play the game:")).toUpperCase();
@@ -63,4 +69,4 @@ function playGame() {
     }
 }
 
-// playGame()
+getHumanChoice()
