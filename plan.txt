@@ -1,0 +1,10 @@
+GOAL:
+Make a program that plays 5 rounds of a rock paper scissors game, displays live
+results, and resets to the starting position after.
+
+Specifics:
+- someone presses the play button
+- play button dissapears and a user input field appears
+- user types in input box, submits move using button
+    - if it is invalid, they are told to try again
+- it says the computer's move, and who won the round
