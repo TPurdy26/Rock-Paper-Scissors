@@ -4,40 +4,55 @@ const startQuestion = document.getElementById("question-prompt");
 const startButton = document.getElementById("play-button");
 const elementsField = document.getElementById("input-field");
 
+let humanScore = 0;
+let computerScore = 0;
+
 startButton.addEventListener("click", playGame);
 
 function playGame() {
     startButton.hidden = true;
     startQuestion.hidden = true;
-    let humanScore = 0;
-    let computerScore = 0;
-    // if humanScore === 5 || computerScore === 5 {
-    //     const winner = 
-    // } 
+
+    if (humanScore <= 5 && computerScore <= 5) {
+    playRound();
+    const scores = document.createElement("div");
+    scores.textContent = "Cool Boy"
+
+}
 }
 
 function playRound() {
-    let humanMove = getHumanChoice();
-    let computerMove = getComputerChoice();
 
-    const results = document.createElement("div");
+    getHumanChoice((humanMove) => {
+        let computerMove = getComputerChoice();
 
-    if (humanMove === "Rock" && computerMove === "Scissors") {
-        results.textContent = "Your move: " + humanMove + "\nComputer's Move: " + computerMove + "\nYou won!";
-        humanScore++;
-    } else if (humanMove === "Paper" && computerMove === "Rock") {
-        results.textContent = "Computer's Move: " + computerMove + "\nYou won!";
-        humanScore++;
-    } else if (humanMove === "Scissors" && computerMove === "Paper") {
-        results.textContent = "Your move: " + humanMove + "\nComputer's Move: " + computerMove + "\nYou won!";
-        return "USER WON";
-        humanScore++;
-    } else if (humanMove === computerMove) {
-        results.textContent = "Your move: " + humanMove + "\nComputer's Move: " + computerMove + "\n It's a tie!";
-    } else {
-        results.textContent = "Your move: " + humanMove + "\nComputer's Move: " + computerMove + "\nYou lost!";
-        computerScore++;
-    }
+        const humanResults = document.createElement("div");
+        const computerResults = document.createElement("div");
+        const whoWon = document.createElement("div");
+
+        humanResults.textContent = "Your move: " + humanMove;
+        computerResults.textContent = "Computer's move: " + computerMove; 
+
+        if (humanMove === "Rock" && computerMove === "Scissors") {
+            whoWon.textContent = "You won!";
+            humanScore++;
+        } else if (humanMove === "Paper" && computerMove === "Rock") {
+            whoWon.textContent = "You won!";
+            humanScore++;
+        } else if (humanMove === "Scissors" && computerMove === "Paper") {
+            whoWon.textContent = "You won!";
+            humanScore++;
+        } else if (humanMove === computerMove) {
+            whoWon.textContent = "It's a tie!";
+        } else {
+            whoWon.textContent = "You lost!";
+            computerScore++;
+        }
+
+        elementsField.appendChild(humanResults);
+        elementsField.appendChild(computerResults);
+        elementsField.appendChild(whoWon);
+        });
 }
 
 function getComputerChoice() {
@@ -57,7 +72,7 @@ function getComputerChoice() {
     return computerChoice;
 }
 
-function getHumanChoice() {
+function getHumanChoice(callBack) {
     const rockButton = document.createElement("button");
     rockButton.classList.add("user_button");
     rockButton.textContent = "Rock";
@@ -77,9 +92,11 @@ function getHumanChoice() {
 
     buttons.forEach(button => {
         button.addEventListener('click', function(event) {
-            return event.target.textContent;
+            rockButton.hidden = true;
+            paperButton.hidden = true;
+            scissorsButton.hidden = true;
+
+            callBack(event.target.textContent);
         })
     })
 }
-
-playRound()
