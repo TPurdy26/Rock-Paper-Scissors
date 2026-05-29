@@ -8,13 +8,16 @@ const computerScore = document.getElementById("computer_score");
 
 const choiceButtons = document.querySelectorAll(".choice_button");
 
+const allItems = document.querySelector("body");
+
 let humanScore = 0;
 let robotScore = 0;
-let isPressed = false;
 
 function getComputerChoice() {
+
     let odds = Math.floor(Math.random() * 3) + 1;
-    let computerChoice
+
+    let computerChoice;
     switch(odds) {
         case 1 :
             computerChoice = "Rock";
@@ -29,40 +32,51 @@ function getComputerChoice() {
     return computerChoice;
 }
 
-function getHumanChoice(callBack) {
-    choiceButtons.forEach(button => {
-        button.addEventListener('click', function(event) {
-            choiceField.textContent = "Your Move: " + event.target.textContent;
-            callBack(event.target.textContent);
-        })
-    })
-}
+choiceButtons.forEach(button => {
+    button.addEventListener('click', function(event) {
 
-function roundResults(humanMove) {
+        choiceField.textContent = "Your Move: " + event.target.textContent;
+
+        playGame(event.target.textContent);
+    })
+})
+
+function playGame(humanMove) {
     let computerMove = getComputerChoice();
 
-    if ((humanMove === "Rock" && computerMove === "Scissors") ||
-    (humanMove === "Paper" && computerMove === "Rock") ||
-    (humanMove === "Scissors" && computerMove === "Paper")) {
+    if (
+        (humanMove === "Rock" && computerMove === "Scissors") ||
+        (humanMove === "Paper" && computerMove === "Rock") ||
+        (humanMove === "Scissors" && computerMove === "Paper")
+    ) {
+
         resultsField.textContent = "You won!";
-        humanScore++;    
+        humanScore++;
+
     } else if (humanMove === computerMove) {
+
         resultsField.textContent = "It's a tie!";
+
     } else {
+
         resultsField.textContent = "You lost!";
         robotScore++;
+
     }
-}
 
-function playRound() {
-    getHumanChoice(roundResults);
-    
-    // computerField.textContent = "Computer's Move: " + computerMove;
-    userScore.textContent = "Computer: " + robotScore;
-    console.log(robotScore);
-}
+    userScore.textContent = "You: " + humanScore;
+    computerScore.textContent = "Computer: " +robotScore;
 
-function playGame() {
-}
+    computerField.textContent = "Computer's Move: " + computerMove;
 
-playRound()
+    if (
+    humanScore === 3
+    ) {
+    allItems.hidden = true;
+
+    const finalStanding = document.createElement("h1");
+    finalStanding.classList.add("final_standing");
+    finalStanding.textContent = "YOU WON!!!";
+    document.appendChild(finalStanding);
+}
+}
