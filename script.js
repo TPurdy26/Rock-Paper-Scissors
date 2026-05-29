@@ -8,9 +8,13 @@ const computerScore = document.getElementById("computer_score");
 
 const choiceButtons = document.querySelectorAll(".choice_button");
 
+let humanScore = 0;
+let robotScore = 0;
+let isPressed = false;
+
 function getComputerChoice() {
     let odds = Math.floor(Math.random() * 3) + 1;
-    let computerChoice;
+    let computerChoice
     switch(odds) {
         case 1 :
             computerChoice = "Rock";
@@ -34,7 +38,9 @@ function getHumanChoice(callBack) {
     })
 }
 
-function roundResults(humanMove, computerMove) {
+function roundResults(humanMove) {
+    let computerMove = getComputerChoice();
+
     if ((humanMove === "Rock" && computerMove === "Scissors") ||
     (humanMove === "Paper" && computerMove === "Rock") ||
     (humanMove === "Scissors" && computerMove === "Paper")) {
@@ -44,20 +50,19 @@ function roundResults(humanMove, computerMove) {
         resultsField.textContent = "It's a tie!";
     } else {
         resultsField.textContent = "You lost!";
-        computerScore++;
+        robotScore++;
     }
 }
 
 function playRound() {
-    let computerMove = getComputerChoice;
-    getHumanChoice(roundResults)
-
-
-
-
+    getHumanChoice(roundResults);
+    
+    // computerField.textContent = "Computer's Move: " + computerMove;
+    userScore.textContent = "Computer: " + robotScore;
+    console.log(robotScore);
 }
 
 function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
 }
+
+playRound()
