@@ -5,10 +5,9 @@ const nextRoundButton = document.getElementById("next_round_button");
 const choiceField = document.getElementById("choice_field");
 const userScore = document.getElementById("your_score");
 const computerScore = document.getElementById("computer_score");
+const mainBody = document.getElementById("main_body");
 
 const choiceButtons = document.querySelectorAll(".choice_button");
-
-const allItems = document.querySelector("body");
 
 let humanScore = 0;
 let robotScore = 0;
@@ -69,14 +68,24 @@ function playGame(humanMove) {
 
     computerField.textContent = "Computer's Move: " + computerMove;
 
+    const finalStanding = document.createElement("h1");
+    finalStanding.textContent = "YOU WON!!!";
+    document.body.appendChild(finalStanding);
+    finalStanding.hidden = true;
+
     if (
     humanScore === 3
     ) {
-    allItems.hidden = true;
 
-    const finalStanding = document.createElement("h1");
-    finalStanding.classList.add("final_standing");
-    finalStanding.textContent = "YOU WON!!!";
-    document.appendChild(finalStanding);
-}
+        mainBody.hidden = true;
+        finalStanding.textContent = "YOU WON!!!";
+        finalStanding.hidden = false;
+
+    } else if (robotScore === 3) {
+
+        mainBody.hidden = true;
+        finalStanding.textContent = "YOU LOST!!!";
+        finalStanding.hidden = false;
+
+    }
 }
